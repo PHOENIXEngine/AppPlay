@@ -4,9 +4,6 @@ import java.util.List;
 
 import org.appplay.ap.util.SystemUiHider;
 import org.appplay.lib.AppPlayBaseActivity;
-import org.appplay.lib.AppPlayMetaData;
-import org.appplay.platformsdk.PlatformSDK;
-import org.appplay.platformsdk.PlatformSDKCreater;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -36,17 +33,6 @@ public class AppPlayActivity extends AppPlayBaseActivity
         
 		this.powerManager = (PowerManager)this.getSystemService(Context.POWER_SERVICE);
 		this.wakeLock = this.powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "My Lock");
-        
-        Log.d("appplay.ap", "begin - AppPlayActivity::onCreate"); 
-        
-        AppPlayMetaData.Initlize(getApplicationContext());
-		
-		if (AppPlayMetaData.sIsNettable)
-			PlatformSDK.sThePlatformSDK = PlatformSDKCreater.Create(this);
-		else
-			Show_GLView();
-		
-		 Log.d("appplay.ap", "end - AppPlayActivity::onCreate"); 
     }
     
     @Override

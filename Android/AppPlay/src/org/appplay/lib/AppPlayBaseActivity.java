@@ -44,7 +44,7 @@ public class AppPlayBaseActivity extends Activity
 	public AppPlayUpdateLayout mUpdateView = null;
 	public AppPlayGLView TheGLView = null;
 
-	private String mPackageName;
+	private static String msPackageName; // use static to support export
 	private boolean mIsAppForeground = true;
 
 	@Override
@@ -72,6 +72,17 @@ public class AppPlayBaseActivity extends Activity
 
 		sVersion_Filename = info.dataDir + "/version.xml";
 		sVersion_Filename_Temp = info.dataDir + "/version_Temp.xml";
+		
+        Log.d("appplay.ap", "begin - AppPlayActivity::onCreate"); 
+        
+        AppPlayMetaData.Initlize(getApplicationContext());
+		
+		if (AppPlayMetaData.sIsNettable)
+			PlatformSDK.sThePlatformSDK = PlatformSDKCreater.Create(this);
+		else
+			Show_GLView();
+		
+		 Log.d("appplay.ap", "end - AppPlayActivity::onCreate"); 
 	}
 
 	@Override
@@ -154,8 +165,8 @@ public class AppPlayBaseActivity extends Activity
 
 	private void _SetPackageName(String packageName)
 	{
-		mPackageName = packageName;
-		Log.d("appplay.ap", "PackageName:" + mPackageName);
+		msPackageName = packageName;
+		Log.d("appplay.ap", "PackageName:" + msPackageName);
 
 		String apkFilePath = "";
 		ApplicationInfo appInfo = null;
@@ -244,8 +255,9 @@ public class AppPlayBaseActivity extends Activity
 
 					try
 					{
-						System.loadLibrary("PX2GamePlayJNI");
-					} catch (UnsatisfiedLinkError ulink)
+						System.loadLibrary("libAppPlayJNI");
+					}
+					catch (UnsatisfiedLinkError ulink)
 					{
 					}
 
@@ -386,6 +398,11 @@ public class AppPlayBaseActivity extends Activity
 			}
 		});
 
+	}
+	
+	public static String GetPackageName ()
+	{
+		 return msPackageName;
 	}
 
 	// platform sdk functions
