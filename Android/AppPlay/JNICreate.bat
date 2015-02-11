@@ -1,2 +1,2 @@
-javah -classpath bin/classes -d jni org.appplay.lib.AppPlayNative
-javah -classpath bin/classes -d jni org.appplay.platformsdk.PlatformSDKNative
+javah -classpath bin/classes -d jni org.appplay.lib.AppPlayNatives
+javah -classpath bin/classes -d jni org.appplay.platformsdk.PlatformSDKNatives

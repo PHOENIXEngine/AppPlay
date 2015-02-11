@@ -34,6 +34,7 @@ public class AppPlayBaseActivity extends Activity
 	// LibSO
 	public static String sLibSO_Filename = "";
 	public static String sLibSO_Dir = "";
+	private static String sLibSO_Name="libAppPlayJNI";
 
 	// Vsersion
 	public static String sVersion_Dir = "";
@@ -67,7 +68,7 @@ public class AppPlayBaseActivity extends Activity
 		}
 
 		sLibSO_Dir = info.dataDir;
-		sLibSO_Filename = info.dataDir + "/libAppPlayJNI.so";
+		sLibSO_Filename = info.dataDir + "/" + sLibSO_Name + ".so";
 		sVersion_Dir = info.dataDir;
 
 		sVersion_Filename = info.dataDir + "/version.xml";
@@ -255,7 +256,7 @@ public class AppPlayBaseActivity extends Activity
 
 					try
 					{
-						System.loadLibrary("libAppPlayJNI");
+						System.loadLibrary(sLibSO_Name);
 					}
 					catch (UnsatisfiedLinkError ulink)
 					{
