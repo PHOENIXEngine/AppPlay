@@ -1,6 +1,6 @@
 package org.appplay.platformsdk;
 
-public class PlatformSDKNative
+public class PlatformSDKNatives
 {
 	public static void PlatformLogin()
 	{

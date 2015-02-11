@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import org.appplay.ap.R;
-import org.appplay.platformsdk.PlatformCPPNative;
+import org.appplay.platformsdk.PlatformSDKNatives;
 import org.appplay.platformsdk.PlatformSDK;
 import org.appplay.platformsdk.PlatformSDKCreater;
 
@@ -271,7 +271,7 @@ public class AppPlayBaseActivity extends Activity
 				_SetPackageName(packageName);
 
 				// set platformsdk
-				PlatformCPPNative
+				PlatformSDKNatives
 						.SetPlatformSDK(PlatformSDKCreater.sSDK_CurrentName);
 
 				// -- begin FrameLayout --
