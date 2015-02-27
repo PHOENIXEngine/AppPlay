@@ -7,12 +7,6 @@
 
 namespace appplay
 {
-
-	class General
-	{
-	public:
-		static void Log(const std::string &str);
-	};
 	
 	class NativeCall
 	{
@@ -34,8 +28,10 @@ namespace appplay
 		static void OnTouchCancelled(int num, int ids[], float xs[], float ys[]);
 
 		// res path
-		static void SetResurcePath(const std::string &path);
-		static void SetDataServerUpdateType(const std::string &type);
+		static void SetResourcePath(std::string path);
+		static void SetDataServerUpdateType(std::string type);
+        
+        static void SetWriteablePath(std::string path);
 
 		// text
 		static void Text_InsertText(const char *text, int length);
@@ -47,7 +43,7 @@ namespace appplay
 
 		// platformsdk
 	public:
-		static void SetPlatformSDK(const std::string &str);
+		static void SetPlatformSDK(std::string str);
 		static void OnLoginSuc(int apiID, std::string loginUin, std::string sessionID, std::string nickname);
 		static void OnLoginCancel();
 		static void OnLoginFailed();

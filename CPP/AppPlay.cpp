@@ -3,6 +3,11 @@
 #include "AppPlay.hpp"
 using namespace appplay;
 
+#if defined (__ANDROID__)
+#include <android/log.h>
+#endif
+
+#define APPPLAY_PX2
 #ifdef APPPLAY_PX2
 #include "PX2Log.hpp"
 #include "PX2Application.hpp"
@@ -14,15 +19,6 @@ using namespace PX2;
 #endif
 
 //----------------------------------------------------------------------------
-void General::Log(const std::string &str)
-{
-#ifdef APPPLAY_PX2
-	PX2_LOG_INFO(str.c_str());
-#endif
-}
-//----------------------------------------------------------------------------
-
-//----------------------------------------------------------------------------
 bool NativeCall::msIsIntlized = false;
 //----------------------------------------------------------------------------
 bool NativeCall::Initlize(int width, int height)
@@ -31,7 +27,16 @@ bool NativeCall::Initlize(int width, int height)
 #ifdef APPPLAY_PX2
 	if (!IsInitlized())
 	{
+#if defined (__ANDROID__)
+		__android_log_print(ANDROID_LOG_INFO, "appplay.lib", "begin - ApplicationBase::msAppInitlizeFun.");
+#endif
+		
 		PX2::ApplicationBase::msAppInitlizeFun();
+		
+#if defined (__ANDROID__)
+		__android_log_print(ANDROID_LOG_INFO, "appplay.lib", "end - ApplicationBase::msAppInitlizeFun.");
+#endif
+		
 		PX2::ApplicationBase::msApplication->Initlize();
 		PX2::ApplicationBase::msApplication->OnSize(width, height);
 		PX2::ApplicationBase::msApplication->WillEnterForeground(true);
@@ -127,7 +132,7 @@ void NativeCall::OnTouchCancelled(int num, int ids[], float xs[], float ys[])
 
 }
 //----------------------------------------------------------------------------
-void NativeCall::SetResurcePath(const std::string &path)
+void NativeCall::SetResourcePath(std::string path)
 {
 
 #ifdef APPPLAY_PX2
@@ -136,13 +141,22 @@ void NativeCall::SetResurcePath(const std::string &path)
 
 }
 //----------------------------------------------------------------------------
-void NativeCall::SetDataServerUpdateType(const std::string &type)
+void NativeCall::SetDataServerUpdateType(std::string type)
 {
 
 #ifdef APPPLAY_PX2
 	PX2::ResourceManager::SetDataUpdateServerType(type);
 #endif
 
+}
+//----------------------------------------------------------------------------
+void NativeCall::SetWriteablePath(std::string path)
+{
+    
+#ifdef APPPLAY_PX2
+	PX2::ResourceManager::SetWriteablePath(path);
+#endif
+    
 }
 //----------------------------------------------------------------------------
 void NativeCall::Text_InsertText(const char *text, int length)
@@ -174,7 +188,7 @@ const char *NativeCall::Text_GetInitContent()
 	return pszText;
 }
 //----------------------------------------------------------------------------
-void NativeCall::SetPlatformSDK(const std::string &str)
+void NativeCall::SetPlatformSDK(std::string str)
 { 
 
 #ifdef APPPLAY_PX2
